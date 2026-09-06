@@ -1,4 +1,4 @@
-from operations import add_contact,view_contact,search,valid_choice,delete_contact
+from operations import add_contact,view_contact,search,valid_choice,delete_contact,update_contact
 
 def main():
     
@@ -13,9 +13,12 @@ def main():
         elif choice == 4:
             delete_contact()
         elif choice == 5:
+            update_contact()
+            
+        elif choice == 6:
             break
         else : 
-            print("Invalid choice .")
+            print("invalid choice")
 
 
 main()

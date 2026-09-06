@@ -6,7 +6,8 @@ def display_menu():
     print('2.View all contacts')
     print('3.Search for a contact')
     print('4.Delete a contact')
-    print('5.Exit')
+    print('5.Update contact')
+    print('6.Exit')
 def valid_choice():
     while True:
         try:
@@ -15,16 +16,6 @@ def valid_choice():
             return choice
         except ValueError :
             print('Try again !!')
-    while True :
-        try :            
-            contact_index = int(input("enter the contact index : "))
-            if contact_index > 0 and contact_index <= len(contact_list):
-                return contact_index-1
-                
-            else :  
-                print('number invalid')
-        except ValueError:
-            print("error.")
 def create_table():
     data = sqlite3.connect("contact_manager/contact.db")
     cursor = data.cursor()
@@ -73,7 +64,7 @@ def search():
     for row in db :
         print(row)
     data.commit()
-    data.close
+    data.close()
     print("contact deleted !")
 
 
@@ -86,3 +77,58 @@ def delete_contact():
     cursor.execute("DELETE FROM contact_list WHERE user_name = ? ",(name,))
     data.commit()
     data.close()
+
+def update_contact():
+    create_table()
+    data = sqlite3.connect("contact_manager/contact.db")
+    cursor = data.cursor()
+    name = input('enter the name you want to change it :')
+    cursor.execute("SELECT * FROM contact_list WHERE user_name = ?",(name,))
+    db = cursor.fetchall()
+    if not db:
+            print('Contact does not exist !')
+            return 
+    else:
+            print("Choose the operation :")
+            print("1-Change Phone number .")
+            print("2-Change Email .")
+            while True:
+                try:
+                   choice = int(input("Enter your choice : "))
+                   break    
+                except ValueError :
+                    print('Try again !!')
+
+            if choice == 1:
+               new_phone = input("Enter the new phone number :")
+               update =(new_phone,name) 
+               cursor.execute("UPDATE contact_list SET phone = ? WHERE user_name = ? ",update)
+               data.commit()
+               print("Contact updated")
+               data.close()
+               return
+            
+            elif choice == 2:
+               new_email = input("Enter the new email :")
+               update = (new_email,name)
+               cursor.execute("UPDATE contact_list SET email = ? WHERE user_name = ? ",update)
+               data.commit()
+               print("Email updated")
+               data.close()
+               return
+            else : 
+                print('invalid choice')
+                return
+
+
+        
+
+
+
+
+
+
+
+
+
+
