@@ -6,7 +6,6 @@ A CLI (Command Line Interface) application built with Python. It allows users to
 ## Project Architecture
 The project follows the Separation of Concerns principle, dividing the code into specific modules:
 
-* **`storage.py`**: Responsible for file handling and JSON serialization to keep contacts saved permanently in `contacts.json`.
 * **`operations.py`**: Contains the core logic for the application. It handles the CRUD operations (Add, View, Delete), the Search functionality, and timestamp generation.
 * **`main.py`**: The entry point of the application. It handles the user interface (CLI menu) and the main application loop.
 

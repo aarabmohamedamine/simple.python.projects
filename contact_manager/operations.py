@@ -1,5 +1,4 @@
 import sqlite3
-
 import datetime as d
 def display_menu():
 
