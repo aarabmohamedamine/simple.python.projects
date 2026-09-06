@@ -1,4 +1,5 @@
-from storage import save
+import sqlite3
+
 import datetime as d
 def display_menu():
 
@@ -15,7 +16,6 @@ def valid_choice():
             return choice
         except ValueError :
             print('Try again !!')
-def get_index(contact_list):
     while True :
         try :            
             contact_index = int(input("enter the contact index : "))
@@ -26,38 +26,64 @@ def get_index(contact_list):
                 print('number invalid')
         except ValueError:
             print("error.")
+def create_table():
+    data = sqlite3.connect("contact_manager/contact.db")
+    cursor = data.cursor()
+    cursor.execute("""CREATE TABLE IF NOT EXISTS contact_list(
+        id_user INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_name TEXT,
+        phone TEXT,
+        email TEXT     ) """)
+    data.close()
+   
 
-def add_contact(contact_list):
-    name = input("Enter the name : ")
-    number = int(input("enter the phone number : "))
+
+def add_contact():
+    create_table()
+    user_name = input("Enter the name : ")
+    phone = input("enter the phone number : ")
     email = input("Enter the email : ")
-    date = d.datetime.now().strftime("%Y-%m-%d %H:%M")
-    data = {'name' : name ,'number' : number , 'email' : email , 'date' : date}
-    contact_list.append(data)
-    save(contact_list)
+    contact = (user_name,phone,email)
+    data = sqlite3.connect("contact_manager/contact.db")
+    cursor = data.cursor()
+    cursor.execute("INSERT INTO contact_list(user_name,phone,email) VALUES(?,?,?)",contact)
+    data.commit()
     print("Contact added successfully !! ")
-def view_contact(contact_list):
-    if not contact_list:
-        print('No contact founded .')
-    else :
-        for item in contact_list :
-            print(item)
-def search(contact_list):
+    data.close()
     
-        name = input('Enter the Name : ')
-        for element in contact_list:
-            if name.lower() == element['name'].lower():
-                return [element['number'],element['email']]
+def view_contact():
+    create_table()
+    data = sqlite3.connect("contact_manager/contact.db")
+    cursor = data.cursor()
+    cursor.execute("SELECT * FROM contact_list")
+    db = cursor.fetchall()
+    for row in db:
+        print(row)
+    data.commit()
+    data.close()
+    
+    
+def search():
+    
+    name = input('Enter the Name : ')
+    create_table()
+    data = sqlite3.connect("contact_manager/contact.db")
+    cursor = data.cursor()
+    cursor.execute("SELECT * FROM contact_list WHERE user_name = ?",(name,))
+    db = cursor.fetchall()
+    for row in db :
+        print(row)
+    data.commit()
+    data.close
+    print("contact deleted !")
 
-        return 'No results'
-def delete_contact(contact_list):
-    if not contact_list:
-        print("Contact list empty !!")
-    else :
-        view_contact(contact_list)
-        contact_index = get_index(contact_list)
-        del contact_list[contact_index]
-        print("Contact deleted .")
-        save(contact_list)
 
 
+def delete_contact():
+    create_table()
+    name = input("Enter the name you want to delete it : ")
+    data = sqlite3.connect("contact_manager/contact.db")
+    cursor = data.cursor()
+    cursor.execute("DELETE FROM contact_list WHERE user_name = ? ",(name,))
+    data.commit()
+    data.close()
