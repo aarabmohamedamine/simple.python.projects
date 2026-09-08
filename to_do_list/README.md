@@ -6,7 +6,6 @@ A CLI (Command Line Interface) application built with Python. It offers an inter
 ## Project Architecture
 The project follows the Separation of Concerns principle, dividing the code into specific modules:
 
-* **`storage.py`**: Responsible for file handling and JSON serialization.
 * **`operation.py`**: Contains the core logic for the application loop. It handles the CRUD operations (Create, Read, Update, Delete).
 * **`main.py`**: The entry point of the application. It handles the user interface (CLI menu) and the main application loop.
 
