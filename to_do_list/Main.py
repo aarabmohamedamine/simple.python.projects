@@ -1,7 +1,5 @@
-from operation import add_task,view_tasks,mark_done,delete_task,get_index
-from storages import load_tasks
+from operation import add_task,view_tasks,mark_done,delete_task,clear_tasks
 
-import os
 
 
 
@@ -19,7 +17,6 @@ def display_menu():
 
 def main():
 
-    tasks = load_tasks()
     while True :
         display_menu()
         try :
@@ -28,27 +25,15 @@ def main():
             print("try again !! ")
             continue
         if choice == 1:
-            add_task(tasks)
+            add_task()
         elif choice == 2:
-            if not tasks :
-                print("tasks list empty!!")
-            else :
-                view_tasks(tasks)
+                view_tasks()
         elif choice == 3:
-            if not tasks :
-                print("tasks list empty!!")
-            else :
-                mark_done(tasks)  
+                mark_done()  
         elif choice == 4:
-            if not tasks :
-                print("tasks list empty!!")
-            else :
-                delete_task(tasks)
+                delete_task()
         elif choice == 5:
-            if not tasks :
-                print("tasks list empty!!")
-            else :
-                os.remove('tasks.json')
+                clear_tasks()
         elif choice == 6 :
             break
         else :
