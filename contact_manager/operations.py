@@ -59,13 +59,13 @@ def search():
     create_table()
     data = sqlite3.connect("contact_manager/contact.db")
     cursor = data.cursor()
-    cursor.execute("SELECT * FROM contact_list WHERE user_name = ?",(name,))
+    cursor.execute("SELECT * FROM contact_list WHERE LOWER(user_name) = LOWER(?)",(name,))
     db = cursor.fetchall()
-    for row in db :
-        print(row)
-    data.commit()
-    data.close()
-    print("contact deleted !")
+    if not db : 
+        print("Contact does not exist !")
+    else:
+        for row in db:
+            print(row)
 
 
 
@@ -74,16 +74,23 @@ def delete_contact():
     name = input("Enter the name you want to delete it : ")
     data = sqlite3.connect("contact_manager/contact.db")
     cursor = data.cursor()
-    cursor.execute("DELETE FROM contact_list WHERE user_name = ? ",(name,))
-    data.commit()
-    data.close()
+    cursor.execute("SELECT * FROM contact_list WHERE LOWER(user_name) = LOWER(?)",(name,))
+    db = cursor.fetchall()
+    if not db :
+        print("Contact does not exist !")
+    else :
+        cursor.execute("DELETE FROM contact_list WHERE LOWER(user_name) = LOWER(?)",(name,) )
+        data.commit()
+        print('Contact Deleted')
+        data.close()
+
 
 def update_contact():
     create_table()
     data = sqlite3.connect("contact_manager/contact.db")
     cursor = data.cursor()
     name = input('enter the name you want to change it :')
-    cursor.execute("SELECT * FROM contact_list WHERE user_name = ?",(name,))
+    cursor.execute("SELECT * FROM contact_list WHERE LOWER(user_name) = LOWER(?)",(name,))
     db = cursor.fetchall()
     if not db:
             print('Contact does not exist !')
@@ -102,7 +109,7 @@ def update_contact():
             if choice == 1:
                new_phone = input("Enter the new phone number :")
                update =(new_phone,name) 
-               cursor.execute("UPDATE contact_list SET phone = ? WHERE user_name = ? ",update)
+               cursor.execute("UPDATE contact_list SET phone = ? WHERE LOWER(user_name) = LOWER(?) ",update)
                data.commit()
                print("Contact updated")
                data.close()
@@ -111,7 +118,7 @@ def update_contact():
             elif choice == 2:
                new_email = input("Enter the new email :")
                update = (new_email,name)
-               cursor.execute("UPDATE contact_list SET email = ? WHERE user_name = ? ",update)
+               cursor.execute("UPDATE contact_list SET email = ? WHERE LOWER(user_name) = LOWER(?) ",update)
                data.commit()
                print("Email updated")
                data.close()
