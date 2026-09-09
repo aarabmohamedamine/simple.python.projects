@@ -44,10 +44,13 @@ def add_product(product_list):
 def view_products(product_list):
    for product in product_list:
       print(product)
+
+    
 def total(product_list):
     Total  =  0
     for expense in product_list:
         Total = Total + expense["Price"]
 
     return Total
+
 
