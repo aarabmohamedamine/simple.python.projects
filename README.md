@@ -22,9 +22,6 @@ Here is a breakdown of the projects included in this repository:
 * **Description:** A script simulating a smart cart that calculates total prices and identifies the most expensive product.
 * **Key Concepts:** Input Validation, Control Flow (`while` loops, `break`), Algorithms.
 
-### 5. 🎮 Mini-Games (Quiz Game & Number Guessing Game)
-* **Description:** Interactive CLI games featuring score tracking and difficulty levels.
-* **Key Concepts:** Logic optimization, Dictionaries, Random module.
 
 ## 🛠️ Technologies & Engineering Practices
 * **Language:** Python
