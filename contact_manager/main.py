@@ -1,19 +1,19 @@
-from operations import add_contact,view_contact,search,valid_choice,delete_contact,update_contact
+from operations import valid_choice , ContactManager
 
 def main():
-    
+    manager = ContactManager()
     while True :
         choice = valid_choice()
         if choice == 1 :
-            add_contact()
+            manager.add_contact()
         elif choice == 2:
-            view_contact()
+            manager.view_contact()
         elif choice == 3:
-               search()
+               manager.search()
         elif choice == 4:
-            delete_contact()
+            manager.delete_contact()
         elif choice == 5:
-            update_contact()
+            manager.update_contact()
             
         elif choice == 6:
             break
