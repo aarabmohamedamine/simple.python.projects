@@ -1,13 +1,13 @@
 # Contact Manager Project
 
 ## Introduction
-A CLI (Command Line Interface) application built with Python. It allows users to efficiently track and manage their contacts, featuring a search functionality and persistent storage using a relational database (SQLite).
+A CLI (Command Line Interface) application built with Python. It allows users to efficiently track and manage their contacts with persistent storage using a relational database (SQLite). The project has been fully refactored using Object-Oriented Programming (OOP) principles for better scalability, performance, and memory management.
 
 ## Project Architecture
-The project follows the Separation of Concerns principle, dividing the codebase into functional modules:
+The project follows Clean Architecture and OOP principles:
 
-* **`operations.py`**: Contains the core logic for the application. It handles the database connection (SQLite) and manages all CRUD operations (Add, View, Update, Delete) as well as the Search functionality.
-* **`main.py`**: The entry point of the application. It handles the user interface (CLI menu) and the main application loop.
+* **`ContactManager` Class (in `operations.py`)**: The core object of the application. It encapsulates the SQLite database connection (opening it only once upon instantiation) and handles all CRUD operations (Add, View, Search, Update, Delete). This ensures the DRY (Don't Repeat Yourself) principle is strictly followed.
+* **`main.py`**: The entry point of the application. It handles the user interface (CLI menu), instantiates a single `ContactManager` object, and runs the main application loop.
 
 ## How to Run
 1. Open your terminal in the project folder.
