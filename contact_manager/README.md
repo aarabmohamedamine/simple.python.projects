@@ -1,22 +1,38 @@
-# Contact Manager Project
+# Contact Manager
 
-## Introduction
-A CLI (Command Line Interface) application built with Python. It allows users to efficiently track and manage their contacts with persistent storage using a relational database (SQLite). The project has been fully refactored using Object-Oriented Programming (OOP) principles for better scalability, performance, and memory management.
+A Python command-line application for managing contacts in a local SQLite database.
 
-## Project Architecture
-The project follows Clean Architecture and OOP principles:
+## Features
 
-* **`ContactManager` Class (in `operations.py`)**: The core object of the application. It encapsulates the SQLite database connection (opening it only once upon instantiation) and handles all CRUD operations (Add, View, Search, Update, Delete). This ensures the DRY (Don't Repeat Yourself) principle is strictly followed.
-* **`main.py`**: The entry point of the application. It handles the user interface (CLI menu), instantiates a single `ContactManager` object, and runs the main application loop.
+- Add a contact with a name, phone number, and email
+- View all saved contacts
+- Search for a contact by name, case-insensitively
+- Update a contact's phone number or email
+- Delete contacts by name
+- Keep data between sessions with SQLite
 
-## How to Run
-1. Open your terminal in the project folder.
-2. Run the following command:
-   ```bash
-   python main.py
-## 👨‍💻 Author
+## Architecture
+
+- `main.py` displays the menu, creates one `ContactManager` instance, and controls the application loop.
+- `operations.py` contains input handling and the `ContactManager` class, which creates the database table and performs the contact operations.
+- `contact.db` is generated automatically inside this directory when the application runs.
+
+SQL values are passed with placeholders rather than being inserted directly into query strings.
+
+## Run
+
+From the repository root:
+
+```bash
+python contact_manager/main.py
+```
+
+No third-party packages are required.
+
+## Author
 
 **Mohamed Amine Aarab**
-* Computer Engineering Student @ ENSAH
-* LinkedIn: [Mohamed Amine Aarab](https://www.linkedin.com/in/aarabmedamine/)
-* GitHub: [@aarabmohamedamine](https://github.com/aarabmohamedamine)
+
+- Computer Engineering Student at ENSAH
+- [LinkedIn](https://www.linkedin.com/in/aarabmedamine/)
+- [GitHub](https://github.com/aarabmohamedamine)
