@@ -1,21 +1,36 @@
-# Smart SHhop Project
-## Introduction
-A CLI (Command Line Interface) application built with Python. It allows users to track and manage their daily expenses efficiently with permanent tracking.
-## Project Architecture
-The project follows the Separation of Concerns principle, dividing the code into specific modules:
+# Smart Shop
 
-* **`storage.py`**: Responsible for file handling and JSON serialization.
-* **`operations.py`**: Contains the core logic for the application loop. It handles the CRUD operations for expenses (Create, Read, Update, Delete) and total calculations.
-* **`main.py`**: The entry point of the application. It handles the user interface (CLI menu) and the main application loop.
-## How to Run
-1. Open your terminal in the project folder.
-2. Run the following command:
-   ```bash
-   python main.py
+A small Python command-line shopping-cart application that stores products and calculates their combined price.
 
-## 👨‍💻 Author
+## Features
+
+- Add a product with a name and price
+- Reject non-numeric and non-positive prices
+- View all products in the cart
+- Calculate the total price
+- Save the cart between sessions in JSON format
+
+## Architecture
+
+- `main.py` loads the cart and controls the menu loop.
+- `operation.py` handles menu input, price validation, product operations, and total calculation.
+- `storage.py` reads and writes the product list with Python's `json` module.
+- `smart.json` is generated automatically inside this directory when the first product is saved.
+
+## Run
+
+From the repository root:
+
+```bash
+python smart_shop/main.py
+```
+
+No third-party packages are required.
+
+## Author
 
 **Mohamed Amine Aarab**
-* Computer Engineering Student @ ENSAH
-* LinkedIn: [Mohamed Amine Aarab](https://www.linkedin.com/in/aarabmedamine/)
-* GitHub: [@aarabmohamedamine](https://github.com/aarabmohamedamine)
+
+- Computer Engineering Student at ENSAH
+- [LinkedIn](https://www.linkedin.com/in/aarabmedamine/)
+- [GitHub](https://github.com/aarabmohamedamine)
