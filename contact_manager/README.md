@@ -27,7 +27,7 @@ From the repository root:
 python contact_manager/main.py
 ```
 
-No third-party packages are required.
+* No third-party packages are required.
 
 ## Author
 
