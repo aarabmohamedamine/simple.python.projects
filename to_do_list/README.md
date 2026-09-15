@@ -1,22 +1,38 @@
-# To-Do List Project
+# To-Do List
 
-## Introduction
-A CLI (Command Line Interface) application built with Python. It offers an interactive menu for users to manage their daily tasks with permanent tracking.
+A Python command-line application for managing tasks with persistent SQLite storage.
 
-## Project Architecture
-The project follows the Separation of Concerns principle, dividing the code into specific modules:
+## Features
 
-* **`operation.py`**: Contains the core logic for the application loop. It handles the CRUD operations (Create, Read, Update, Delete).
-* **`main.py`**: The entry point of the application. It handles the user interface (CLI menu) and the main application loop.
+- Add a task with a default `Pending` status
+- Record the task creation time as hours and minutes
+- View all tasks
+- Mark a task as done
+- Delete a task by name
+- Clear the entire task list
 
-## How to Run
-1. Open your terminal in the project folder.
-2. Run the following command:
-   ```bash
-   python main.py
-## 👨‍💻 Author
+## Architecture
+
+- `Main.py` displays the interactive menu and controls the application loop.
+- `operation.py` creates the database table and implements the task operations.
+- `tasks.db` is generated automatically inside this directory when the application runs.
+
+Contact with SQLite uses Python's built-in `sqlite3` module, and query values are supplied through SQL placeholders.
+
+## Run
+
+File names are case-sensitive on Linux. From the repository root, use:
+
+```bash
+python to_do_list/Main.py
+```
+
+No third-party packages are required.
+
+## Author
 
 **Mohamed Amine Aarab**
-* Computer Engineering Student @ ENSAH
-* LinkedIn: [Mohamed Amine Aarab](https://www.linkedin.com/in/aarabmedamine/)
-* GitHub: [@aarabmohamedamine](https://github.com/aarabmohamedamine)
+
+- Computer Engineering Student at ENSAH
+- [LinkedIn](https://www.linkedin.com/in/aarabmedamine/)
+- [GitHub](https://github.com/aarabmohamedamine)

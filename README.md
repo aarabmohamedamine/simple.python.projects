@@ -1,44 +1,55 @@
-# 🚀 My Python Projects Portfolio
+# Python CLI Projects
 
-## 📖 Introduction
-Welcome to my central repository! This repository contains a collection of Python CLI (Command Line Interface) applications. These projects were built to master software engineering fundamentals, problem decomposition, Clean Architecture, and persistent data storage.
+A collection of small command-line applications built while learning Python and software-engineering fundamentals. The projects practise modular design, input validation, JSON file handling, SQLite databases, and CRUD-style operations.
 
-## 📂 Projects Overview
-Here is a breakdown of the projects included in this repository:
+## Projects
 
-### 1. 📝 To-Do List Application
-* **Description:** A complete CRUD application to manage daily tasks with permanent tracking.
-* **Key Concepts:** File handling, JSON serialization, Defensive Programming (try/except).
+| Project | What it does | Storage | Main concepts |
+|---|---|---|---|
+| [To-Do List](./to_do_list/) | Adds, lists, completes, deletes, and clears tasks | SQLite | CRUD operations, SQL, timestamps, modules |
+| [Expense Tracker](./expense_tracker/) | Records expenses, lists them, and calculates the total | JSON | File persistence, dictionaries, aggregation |
+| [Contact Manager](./contact_manager/) | Adds, lists, searches, updates, and deletes contacts | SQLite | OOP, parameterized SQL, CRUD operations |
+| [Smart Shop](./smart_shop/) | Adds products, lists them, and calculates the cart total | JSON | Input validation, persistence, modular design |
 
-### 2. 💰 Expense Tracker
-* **Description:** A modular application to track and manage daily expenses efficiently.
-* **Key Concepts:** Clean Architecture (Separation of Concerns into `main.py`, `operations.py`, and `storage.py`), Persistent Storage.
+## Requirements
 
-### 3. 📇 Contact Manager
-* **Description:** An application to store, view, search, and delete contacts with automatic timestamps.
-* **Key Concepts:** Python Standard Library (`datetime`), Advanced Data Structures (List of Dictionaries), Modular Programming.
+- Python 3
+- No third-party packages are required
 
-### 4. 🛒 Smart Shopping Cart
-* **Description:** A script simulating a smart cart that calculates total prices and identifies the most expensive product.
-* **Key Concepts:** Input Validation, Control Flow (`while` loops, `break`), Algorithms.
+## Getting Started
 
+Clone the repository and enter its root directory:
 
-## 🛠️ Technologies & Engineering Practices
-* **Language:** Python
-* **Data Storage:** JSON, SQLite (Relational Databases)
-* **Core Skills:** Problem Decomposition, Clean Architecture, Modular Programming, Debugging
+```bash
+git clone https://github.com/aarabmohamedamine/simple.python.projects.git
+cd simple.python.projects
+```
 
-## 🚀 How to Run
-To run any of these projects locally:
-1. Clone this repository to your local machine.
-2. Navigate to the specific project folder (e.g., `cd expense_tracker`).
-3. Run the main entry point file:
-   ```bash
-   python main.py
+Run a project from the repository root:
 
-## 👨‍💻 Author
+```bash
+python to_do_list/Main.py
+python expense_tracker/main.py
+python contact_manager/main.py
+python smart_shop/main.py
+```
+
+Each application presents an interactive terminal menu. Its SQLite database or JSON data file is created automatically after data is first stored.
+
+## Repository Structure
+
+```text
+simple.python.projects/
+├── contact_manager/
+├── expense_tracker/
+├── smart_shop/
+└── to_do_list/
+```
+
+## Author
 
 **Mohamed Amine Aarab**
-* Computer Engineering Student @ ENSAH
-* LinkedIn: [Mohamed Amine Aarab](https://www.linkedin.com/in/aarabmedamine/)
-* GitHub: [@aarabmohamedamine](https://github.com/aarabmohamedamine)
+
+- Computer Engineering Student at ENSAH
+- [LinkedIn](https://www.linkedin.com/in/aarabmedamine/)
+- [GitHub](https://github.com/aarabmohamedamine)
