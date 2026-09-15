@@ -1,24 +1,36 @@
-# Expense Tracker Project
+# Expense Tracker
 
-## Introduction
-A CLI (Command Line Interface) application built with Python. It allows users to track and manage their daily expenses efficiently with persistent tracking.
+A simple Python command-line application for recording expenses and calculating how much has been spent.
 
-## Project Architecture
-The project follows the Clean Architecture and Separation of Concerns principles, dividing the codebase into specific modules:
+## Features
 
-* **`storage.py`**: Responsible for file handling and JSON serialization to keep expenses saved permanently.
-* **`operations.py`**: Contains the core logic for the application. It handles the CRUD operations for expenses (Create, Read, Update, Delete) and calculates the total expenses.
-* **`main.py`**: The entry point of the application. It handles the user interface (CLI menu) and the main application loop.
+- Add an expense with an integer amount, category, and description
+- View all recorded expenses
+- Calculate the total of all expense amounts
+- Save data between sessions in JSON format
+- Handle non-numeric amount input without stopping the program
 
-## How to Run
-1. Open your terminal in the project folder.
-2. Run the following command:
-   ```bash
-   python main.py
+## Architecture
 
-## 👨‍💻 Author
+- `main.py` loads saved data, displays the menu, and controls the application loop.
+- `operations.py` adds, displays, and totals expenses.
+- `storage.py` loads and saves the expense list with Python's `json` module.
+- `expenses.json` is generated automatically inside this directory when the first expense is saved.
+
+## Run
+
+From the repository root:
+
+```bash
+python expense_tracker/main.py
+```
+
+No third-party packages are required.
+
+## Author
 
 **Mohamed Amine Aarab**
-* Computer Engineering Student @ ENSAH
-* LinkedIn: [Mohamed Amine Aarab](https://www.linkedin.com/in/aarabmedamine/)
-* GitHub: [@aarabmohamedamine](https://github.com/aarabmohamedamine)
+
+- Computer Engineering Student at ENSAH
+- [LinkedIn](https://www.linkedin.com/in/aarabmedamine/)
+- [GitHub](https://github.com/aarabmohamedamine)
