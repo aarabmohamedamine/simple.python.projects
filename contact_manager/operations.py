@@ -28,9 +28,9 @@ class ContactManager:
         email TEXT     ) """)
     def add_contact(self):
         cursor = self.connection.cursor()
-        user_name = input("Enter the name : ")
-        phone = input("enter the phone number : ")
-        email = input("Enter the email : ")
+        user_name = input("Enter the name : ").title().strip()
+        phone = input("enter the phone number : ").strip()
+        email = input("Enter the email : ").strip()
         contact = (user_name,phone,email)
         cursor.execute("INSERT INTO contact_list(user_name,phone,email) VALUES(?,?,?)",contact)
         self.connection.commit()
@@ -93,32 +93,6 @@ class ContactManager:
                     print("Email updated")
                 else : 
                     print('invalid choice')
-
-
-    # operations.py - zid had les méthodes f class ContactManager
-    def get_all_contacts(self):
-        cursor = self.connection.cursor()
-        cursor.execute("SELECT id_user, user_name, phone, email FROM contact_list")
-        return [dict(zip(["id_user","user_name","phone","email"], r)) for r in cursor.fetchall()]
-
-    def add_contact_api(self, user_name, phone, email):
-        cursor = self.connection.cursor()
-        cursor.execute("INSERT INTO contact_list(user_name,phone,email) VALUES(?,?,?)",
-                    (user_name, phone, email))
-        self.connection.commit()
-        return cursor.lastrowid
-
-    def update_contact_api(self, cid, user_name, phone, email):
-        cursor = self.connection.cursor()
-        cursor.execute("UPDATE contact_list SET user_name=?, phone=?, email=? WHERE id_user=?",
-                    (user_name, phone, email, cid))
-        self.connection.commit()
-
-    def delete_contact_api(self, cid):
-        cursor = self.connection.cursor()
-        cursor.execute("DELETE FROM contact_list WHERE id_user=?", (cid,))
-        self.connection.commit()
-                        
 
 
     

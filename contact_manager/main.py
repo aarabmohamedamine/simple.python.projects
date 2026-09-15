@@ -1,5 +1,4 @@
 from operations import valid_choice , ContactManager
-
 def main():
     manager = ContactManager()
     while True :
