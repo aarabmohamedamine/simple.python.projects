@@ -96,5 +96,3 @@ def clear_tasks():
 
 
 
-
-
