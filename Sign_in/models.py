@@ -46,9 +46,7 @@ def user_name_exist(name):
     
 class user:
     def __init__(self):
-        # self.name = input('Enter your name :').strip().title()
-        self.id = id_generator()
-        self.password = password_generator()
+        pass
 
     def create_table(self):
         self.connection = sqlite3.connect('Sign_in/data/users.db')
@@ -59,7 +57,7 @@ class user:
         name TEXT,
         user_id TEXT,
         password TEXT,
-        Log_in TEXT)""")
+        last_update TEXT)""")
         self.connection.commit()
 
     def create_account(self):
@@ -69,22 +67,25 @@ class user:
         cursor.execute("SELECT * FROM users WHERE LOWER(name) = LOWER(?)",(name,))
         db = cursor.fetchall()
         if not db:
+            user_id = id_generator()
+            user_password = password_generator()
             data = (
                 name,
-                self.id,
-                self.password,
+                user_id,
+                user_password,
                 datetime.now().strftime("%H:%M")
 
             )
-            cursor.execute("INSERT INTO users(name,user_id,password,Log_in) VALUES(?,?,?,?)",data)
+            cursor.execute("INSERT INTO users(name,user_id,password,last_update) VALUES(?,?,?,?)",data)
             self.connection.commit()
             print('Account created ✅')
-            print('⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️⬇️')
-            print(f'Your User ID : {self.id}')
-            print(f'your password : {self.password}')
-            return True , 'account created '
+            print('🔻🔻🔻🔻🔻🔻')
+            print(f'Your User ID : {user_id}')
+            print(f'your password : {user_password}')
+            print('Warning ⚠️: Do not share with anyone ')
+            return
         else:
-            return False , 'user name already exist'
+            print('name already exists ❌')
 
     def change_password(self):
         search_name = input('enter the name account: ').strip().title()
@@ -93,19 +94,25 @@ class user:
         cursor.execute("SELECT * FROM users WHERE LOWER(name) = LOWER(?)",(search_name,))
         rows = cursor.fetchall()
         if not rows:
-            print('Try again')
+            print("""user name doesn't exist ❗❗""")
+            self.connection.close()
         else: 
             print('Enter the current passeword')
             user_password = input(':')
             for row in rows:
-                if user_password in row:
+                if user_password == row[3]:
                     new_password = password_verification()
-                    cursor.execute("UPDATE users SET password = ? WHERE LOWER(name) = LOWER(?)",(new_password,search_name))
+                    cursor.execute("UPDATE users SET password = ?,last_update = ? WHERE LOWER(name) = LOWER(?)",(new_password,datetime.now().strftime("%H:%M"),search_name))
                     self.connection.commit()
-                    return True , new_password
-            else :
+                    print('Password Updated ✅')
+                    self.connection.close()
+                    break
+
+                     
+                else :
                 
-                print('Try again!')
+                    print('password incorrect ❗')
+                    self.connection.close()
 
 
     def log_in(self):
@@ -116,13 +123,17 @@ class user:
         rows = cursor.fetchall()
         if not rows:
             print("""user name doesn't exist ❗❗""")
+            self.connection.close()
         else:
             password = input('enter the password: ')
             for row in rows:
-                if password in row:
+                if password == row[3]:
                     print(f'Welcom {user_name} 🫡')
+                    self.connection.close()
+                    break
                 else:
                     print('password incorrect ❌ ')
+                    self.connection.close()
 
 
 
