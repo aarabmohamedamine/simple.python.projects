@@ -38,8 +38,10 @@ def user_name_exist(name):
     cursor.execute('SELECT * FROM users WHERE LOWER(name) = LOWER(?)',(name,))
     db = cursor.fetchall()
     if not db:
+        data.close()
         return False 
     else :
+        data.close()
         return True 
     
 
@@ -97,22 +99,27 @@ class user:
             print("""user name doesn't exist ❗❗""")
             self.connection.close()
         else: 
-            print('Enter the current passeword')
-            user_password = input(':')
-            for row in rows:
-                if user_password == row[3]:
-                    new_password = password_verification()
-                    cursor.execute("UPDATE users SET password = ?,last_update = ? WHERE LOWER(name) = LOWER(?)",(new_password,datetime.now().strftime("%H:%M"),search_name))
-                    self.connection.commit()
-                    print('Password Updated ✅')
-                    self.connection.close()
-                    break
+            attempts = 0
+            while attempts < 3:
+                print('Enter the current passeword')
+                user_password = input(':')
+                attempts +=1
+                for row in rows:
+                    if user_password == row[3]:
+                        new_password = password_verification()
+                        cursor.execute("UPDATE users SET password = ?,last_update = ? WHERE LOWER(name) = LOWER(?)",(new_password,datetime.now().strftime("%H:%M"),search_name))
+                        self.connection.commit()
+                        print('Password Updated ✅')
+                        self.connection.close()
+                        return
+                        
+                    else :
+                    
+                        print('password incorrect ❗')
+                        print('Try again')
+                        self.connection.close()
 
-                     
-                else :
-                
-                    print('password incorrect ❗')
-                    self.connection.close()
+            print('Account temporarily locked 🚫')
 
 
     def log_in(self):
@@ -125,15 +132,21 @@ class user:
             print("""user name doesn't exist ❗❗""")
             self.connection.close()
         else:
-            password = input('enter the password: ')
-            for row in rows:
-                if password == row[3]:
-                    print(f'Welcom {user_name} 🫡')
-                    self.connection.close()
-                    break
-                else:
-                    print('password incorrect ❌ ')
-                    self.connection.close()
+            attempts = 0
+            while attempts < 3:
+                password = input('enter the password: ')
+                attempts +=1
+                for row in rows:
+                    if password == row[3]:
+                        print(f'Welcom {user_name} 🫡')
+                        self.connection.close()
+                        return
+                    else:
+                        print('password incorrect ❌ ')
+                        print('Try again')
+                        self.connection.close()
+
+            print('Account temporarily locked 🚫')
 
 
 
