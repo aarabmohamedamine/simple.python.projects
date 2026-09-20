@@ -15,7 +15,7 @@ This learning project brings together modular programming, authentication flow, 
 - **Persistent storage:** saves accounts and tasks in separate SQLite databases.
 - **Menu validation:** handles nonnumeric and out-of-range menu choices.
 
-A **Delete Task** menu option is present, but its database path needs correction before it can work as intended. See [Current Limitations](#current-limitations).
+A **Delete Task** menu option is present, but its database path needs correction before it can work as intended.
 
 ## Requirements
 
@@ -58,7 +58,7 @@ The repository includes database files. If they are absent, SQLite creates them 
 | 1. Add Task | Save a task for the current user |
 | 2. View Tasks | Display the current user's task records |
 | 3. Mark Done | Complete tasks matching the entered name |
-| 4. Delete Task | Currently affected by the database-path issue described below |
+| 4. Delete Task | Currently affected by an incorrect database path |
 | 5. Log Out | End the session and exit the application |
 
 Task records are displayed as Python tuples in this order:
@@ -111,29 +111,10 @@ Username duplication is checked by application code; the table does not declare 
 
 Both time fields contain only hours and minutes, without a calendar date. The two databases are linked logically by username, with no database-enforced foreign key.
 
-## Current Limitations
-
-- **Deletion uses the wrong database:** `delete_task()` connects to `to_do_list/task.db` instead of `TDLV2/data/tasks.db`. Depending on the other database's state, deletion may fail or target a different database.
-- **Passwords are stored as plain text and entered visibly:** this is a learning implementation, not production-ready authentication. Use a disposable demo password.
-- **No persistent account lockout:** login allows three password attempts per call, but the “temporarily locked” message appears after each failed attempt. Starting another login allows further attempts.
-- **Logout exits the program:** it does not return to the authentication menu.
-- **Tasks are selected by name:** duplicate task names are allowed, so marking a name as done updates all case-insensitive matches belonging to that user.
-- **Input validation is incomplete:** empty usernames and task descriptions are not rejected.
-- **Some database connections are not explicitly closed:** resource handling could be improved with consistent connection cleanup.
-
-## Concepts Practised
-
-- Separating terminal menus, account logic, and task operations into modules
-- Maintaining a current-user session in memory
-- Persisting data with SQLite
-- Using parameterized SQL queries with `?` placeholders
-- Creating, reading, and updating database records
-- Filtering records by username
-- Validating menu input with loops and `try/except`
-- Formatting times with `datetime.strftime("%H:%M")`
-
 ## Author
 
 **Mohamed Amine Aarab**
+
+[LinkedIn](https://www.linkedin.com/in/aarabmedamine/)
 
 [GitHub](https://github.com/aarabmohamedamine)
