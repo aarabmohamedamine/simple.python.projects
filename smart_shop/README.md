@@ -1,31 +1,74 @@
-# Smart Shop
+# CLI Smart Shop
 
-A small Python command-line shopping-cart application that stores products and calculates their combined price.
+A Python command-line shopping-cart application for storing products and calculating their combined price with JSON persistence.
 
-## Features
+## 📌 Features
 
-- Add a product with a name and price
-- Reject non-numeric and non-positive prices
-- View all products in the cart
-- Calculate the total price
-- Save the cart between sessions in JSON format
+- **Product Entry**: Add a product name and a positive whole-number price.
+- **Price Validation**: Retry non-numeric, zero, and negative prices.
+- **Cart Overview**: View products and calculate the cart total.
+- **JSON Persistence**: Reload the cart at startup and save after each addition.
 
-## Architecture
+## 📁 Project Structure
 
-- `main.py` loads the cart and controls the menu loop.
-- `operation.py` handles menu input, price validation, product operations, and total calculation.
-- `storage.py` reads and writes the product list with Python's `json` module.
-- `smart.json` is generated automatically inside this directory when the first product is saved.
+```text
+smart_shop/
+├── main.py          # Application loop and cart loading
+├── operation.py     # Menu, validation, and product operations
+├── storage.py       # JSON loading and saving
+├── smart.json       # Created on the first save
+└── README.md
+```
 
-## Run
+## 🚀 Getting Started
 
-From the repository root:
+### Prerequisites
+
+- Python 3.8 or higher with the standard library modules `json`.
+- No third-party packages required.
+
+### Installation & Setup
+
+1. Clone the repository and enter its root directory:
+
+   ```bash
+   git clone https://github.com/aarabmohamedamine/simple.python.projects.git
+   cd simple.python.projects
+   ```
+
+### Running the Application
+
+Run from the **repository root**, because storage paths are relative to the working directory:
 
 ```bash
 python smart_shop/main.py
 ```
 
-No third-party packages are required.
+If your system uses `python3`, replace `python` with `python3` in these commands.
+
+## 🖥️ Usage Guide
+
+1. **Add product**: Enter its name and a positive integer price.
+2. **View products**: Display all products as dictionaries.
+3. **View total**: Sum the prices in the cart.
+4. **Exit**: Close the application.
+
+## 🗄️ Data Storage
+
+### `smart.json`
+
+The file contains a JSON array of product objects. A missing file starts an empty cart; adding a product writes the complete list.
+
+| Field | Type | Description |
+|---|---|---|
+| `Product name` | `string` | Product label; key includes a space |
+| `Price` | `integer` | Positive whole-number price |
+
+```json
+[
+  {"Product name": "Notebook", "Price": 25}
+]
+```
 
 ## Author
 

@@ -1,31 +1,72 @@
-# Contact Manager Project
+# CLI Contact Manager
 
-## Introduction
-A CLI (Command Line Interface) application built with Python. It allows users to efficiently track and manage their contacts, featuring a search functionality and persistent storage using a relational database (SQLite).
+A Python command-line contact manager built around a `ContactManager` class and SQLite persistence.
 
-## Project Architecture
-The project follows the Separation of Concerns principle, dividing the codebase into functional modules:
+## 📌 Features
 
-* **`operations.py`**: Contains the core logic for the application. It handles the database connection (SQLite) and manages all CRUD operations (Add, View, Update, Delete) as well as the Search functionality.
-* **`main.py`**: The entry point of the application. It handles the user interface (CLI menu) and the main application loop.
+- **Contact Management**: Add, view, search, update, and delete contacts.
+- **Contact Details**: Store a name, phone number, and email address.
+- **Name Lookup**: Search by a full name using case-insensitive matching.
+- **SQLite Persistence**: Create the database table automatically and commit changes using parameterized SQL.
 
-## Architecture
+## 📁 Project Structure
 
-- `main.py` displays the menu, creates one `ContactManager` instance, and controls the application loop.
-- `operations.py` contains input handling and the `ContactManager` class, which creates the database table and performs the contact operations.
-- `contact.db` is generated automatically inside this directory when the application runs.
+```text
+contact_manager/
+├── main.py          # CLI menu and application loop
+├── operations.py    # ContactManager class and database operations
+├── contact.db       # SQLite database created on startup
+└── README.md
+```
 
-SQL values are passed with placeholders rather than being inserted directly into query strings.
+## 🚀 Getting Started
 
-## Run
+### Prerequisites
 
-From the repository root:
+- Python 3.8 or higher with the standard library modules `sqlite3`.
+- No third-party packages required.
+
+### Installation & Setup
+
+1. Clone the repository and enter its root directory:
+
+   ```bash
+   git clone https://github.com/aarabmohamedamine/simple.python.projects.git
+   cd simple.python.projects
+   ```
+
+### Running the Application
+
+Run from the **repository root**, because storage paths are relative to the working directory:
 
 ```bash
 python contact_manager/main.py
 ```
 
-* No third-party packages are required.
+If your system uses `python3`, replace `python` with `python3` in these commands.
+
+## 🖥️ Usage Guide
+
+1. **Add contact**: Enter the name, phone number, and email address.
+2. **View all contacts**: Display the stored database rows.
+3. **Search for a contact**: Enter the full name; matching ignores letter case.
+4. **Delete a contact**: Delete contacts matching the supplied name.
+5. **Update contact**: Find contacts by name, then choose `1` to change the phone number or `2` to change the email.
+6. **Exit**: Close the application.
+
+Names are not unique. Updating or deleting by name affects every matching row. Phone numbers and email addresses are stored as entered without format validation.
+
+## 🗄️ Database Schemas
+
+### `contact.db` (`contact_list` Table)
+
+| Field | Type | Description |
+|---|---|---|
+| `id_user` | `INTEGER` | Primary key with auto-increment |
+| `user_name` | `TEXT` | Contact name, stripped and title-cased when added |
+| `phone` | `TEXT` | Phone number |
+| `email` | `TEXT` | Email address |
+
 
 ## Author
 
@@ -34,4 +75,3 @@ python contact_manager/main.py
 - Computer Engineering Student at ENSAH
 - [LinkedIn](https://www.linkedin.com/in/aarabmedamine/)
 - [GitHub](https://github.com/aarabmohamedamine)
-

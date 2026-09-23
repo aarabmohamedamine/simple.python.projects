@@ -8,11 +8,11 @@ A multi-user command-line interface (CLI) to-do list application built in Python
 
   * Sign up with unique username validation and password length checks ($\ge 6$ characters).
 
-  * Secure login handling with up to 3 password retry attempts.
+  * Login handling with up to 3 password attempts per login call.
 
 * **Personalized Task Management**:
 
-  * Each user's tasks are strictly separated by account.
+  * Task operations filter records by the logged-in username.
 
   * Add tasks with automated duplicate prevention per user.
 
@@ -24,7 +24,7 @@ A multi-user command-line interface (CLI) to-do list application built in Python
 
 * **SQLite Persistence**:
 
-  * Automatic database and table creation for both accounts and task lists.
+  * Database and table creation when account and task operations initialize them, after the `data` directory exists.
 
 ## 📁 Project Structure
 
@@ -56,13 +56,13 @@ to_do_list/
 2. Ensure the directory structure matches the path layout, particularly creating the `data` folder inside `to_do_list`:
 
    ```
-   mkdir -p to_do_list/data
+   python -c "from pathlib import Path; Path('to_do_list/data').mkdir(parents=True, exist_ok=True)"
    
    ```
 
 ### Running the Application
 
-Execute the application from the root directory or directly run `app.py`:
+Execute the application from the **repository root** because database paths are relative to the working directory:
 
 ```
 python to_do_list/app.py
@@ -75,7 +75,7 @@ python to_do_list/app.py
 
 When running the script, choose:
 
-* `1. Sign In (Create Account)`: Register with a new username and a password.
+* `1. Sign In (Create Account)`: Register with a new username and a password, then select Log In to open the task dashboard.
 
 * `2. Log In`: Log into an existing profile.
 
@@ -93,14 +93,14 @@ Once authenticated, manage your personal task list:
 
 * `4. Delete Task`: Remove a task from the database.
 
-* `5. Log Out`: Return to the main authentication menu.
+* `5. Log Out`: End the current application run. Restart the script to log in again.
 
 ## 🗄️ Database Schemas
 
 ### `users.db` (`users` Table)
 
 | Field | Type | Description | 
- | ----- | ----- | ----- | 
+| ----- | ----- | ----- |
 | `name` | `TEXT` | Username (unique check in code) | 
 | `password` | `TEXT` | User password | 
 | `time` | `TEXT` | Registration time (`HH:MM`) | 
@@ -108,12 +108,14 @@ Once authenticated, manage your personal task list:
 ### `tasks.db` (`task_list` Table)
 
 | Field | Type | Description | 
- | ----- | ----- | ----- | 
+| ----- | ----- | ----- |
 | `id_user` | `INTEGER` | Primary key with auto-increment | 
 | `user_name` | `TEXT` | Owner of the task | 
 | `task` | `TEXT` | Description/title of the task | 
 | `status` | `TEXT` | Task state (`Pending` or `Done`) | 
 | `date` | `TEXT` | Time of creation or last update (`HH:MM`) | 
+
+Passwords are stored as plaintext. The three-attempt loop does not implement a persistent account lockout. This authentication flow is intended as a learning exercise.
 
 ## Author
 
