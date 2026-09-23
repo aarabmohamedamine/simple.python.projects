@@ -1,4 +1,4 @@
-import SL
+import accounts
 import operations
 
 
@@ -26,9 +26,9 @@ def main():
 
 
         if choice == 1:
-            SL.sign_in()
+            accounts.sign_in()
         elif choice == 2:
-            current_user = SL.log_in()
+            current_user = accounts.log_in()
         elif choice == 3:
             print("Goodbye!")
             return

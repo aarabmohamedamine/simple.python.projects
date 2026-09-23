@@ -2,7 +2,7 @@ import sqlite3
 from datetime import datetime
 
 def data_user_table():
-    data = sqlite3.connect('TDLV2/data/users.db')
+    data = sqlite3.connect('to_do_list/data/users.db')
     cursor = data.cursor()
     cursor.execute("""CREATE TABLE IF NOT EXISTS users(
     name TEXT,
@@ -13,7 +13,7 @@ def data_user_table():
     data.close()
 
 def name_existing(name):
-    data = sqlite3.connect('TDLV2/data/users.db')
+    data = sqlite3.connect('to_do_list/data/users.db')
     cursor = data.cursor()
     cursor.execute("SELECT * FROM users WHERE name = ?",(name,))
     names = cursor.fetchall()
@@ -50,7 +50,7 @@ def sign_in():
 
 
 
-    data = sqlite3.connect('TDLV2/data/users.db')
+    data = sqlite3.connect('to_do_list/data/users.db')
     cursor = data.cursor()
     cursor.execute("INSERT INTO users(name,password,time) VALUES(?,?,?)",(name,password,datetime.now().strftime("%H:%M")))
     data.commit()
@@ -64,7 +64,7 @@ def log_in():
     data_user_table()
     print('------Log in------')
     name = input('Enter your user name: ')
-    data = sqlite3.connect('TDLV2/data/users.db')
+    data = sqlite3.connect('to_do_list/data/users.db')
     cursor = data.cursor()
     cursor.execute("SELECT * FROM users WHERE name = ?",(name,))
     names = cursor.fetchall()
