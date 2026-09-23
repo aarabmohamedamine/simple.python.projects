@@ -1,120 +1,125 @@
-# TDLV2 — To-Do List with User Accounts
+# CLI To-Do List Application
 
-A Python command-line task manager with account registration, login, and SQLite persistence. Each logged-in user can add, view, and complete their own tasks.
+A multi-user command-line interface (CLI) to-do list application built in Python using SQLite for persistent data storage.
 
-This learning project brings together modular programming, authentication flow, parameterized SQL, and persistent data storage.
+## 📌 Features
 
-## Features
+* **User Authentication**:
 
-- **Account registration:** checks for an existing username and requires a matching password confirmation with at least six characters.
-- **Login:** checks credentials and allows up to three password attempts per login call.
-- **Personal task lists:** associates tasks with a username and filters task viewing and completion by the logged-in user.
-- **Add tasks:** saves new tasks with a `Pending` status.
-- **View tasks:** prints the user's saved task records.
-- **Mark tasks as done:** matches task names case-insensitively and updates their status to `done`.
-- **Persistent storage:** saves accounts and tasks in separate SQLite databases.
-- **Menu validation:** handles nonnumeric and out-of-range menu choices.
+  * Sign up with unique username validation and password length checks ($\ge 6$ characters).
 
-A **Delete Task** menu option is present, but its database path needs correction before it can work as intended.
+  * Secure login handling with up to 3 password retry attempts.
 
-## Requirements
+* **Personalized Task Management**:
 
-- Python 3
-- Git, if cloning the repository
+  * Each user's tasks are strictly separated by account.
 
-No third-party Python packages are required. The application uses the standard-library `sqlite3` and `datetime` modules.
+  * Add tasks with automated duplicate prevention per user.
 
-## Getting Started
+  * View tasks formatted cleanly in aligned columns with dynamic statuses and timestamps.
 
-Clone the repository and enter its root directory:
+  * Mark pending tasks as completed (`Done`), updating the last modified timestamp.
 
-```bash
-git clone https://github.com/aarabmohamedamine/simple.python.projects.git
-cd simple.python.projects
+  * Delete tasks safely with case-insensitive matching.
+
+* **SQLite Persistence**:
+
+  * Automatic database and table creation for both accounts and task lists.
+
+## 📁 Project Structure
+
+```
+to_do_list/
+│
+├── accounts.py       # User registration, authentication, and user table setup
+├── app.py            # Main interactive CLI application entrypoint & menus
+├── operations.py     # Task CRUD operations (add, view, mark done, delete)
+├── data/
+│   ├── users.db      # SQLite database storing user credentials
+│   └── tasks.db      # SQLite database storing tasks and statuses
+└── README.md
+
 ```
 
-Ensure the database directory exists, then start the application:
+## 🚀 Getting Started
 
-```bash
-python -c "from pathlib import Path; Path('TDLV2/data').mkdir(parents=True, exist_ok=True)"
-python TDLV2/app.py
+### Prerequisites
+
+* Python 3.8 or higher installed on your machine.
+
+* No third-party packages required (uses built-in standard libraries: `sqlite3`, `datetime`).
+
+### Installation & Setup
+
+1. **Clone or download** the project folder.
+
+2. Ensure the directory structure matches the path layout, particularly creating the `data` folder inside `to_do_list`:
+
+   ```
+   mkdir -p to_do_list/data
+   
+   ```
+
+### Running the Application
+
+Execute the application from the root directory or directly run `app.py`:
+
+```
+python to_do_list/app.py
+
 ```
 
-Use `python3` instead of `python` if that is the Python command on your system.
+## 🖥️ Usage Guide
 
-**Run these commands from the repository root.** Database paths are relative to the current working directory, so running `python app.py` from inside `TDLV2` will not resolve them correctly.
+### 1. Account Menu
 
-The repository includes database files. If they are absent, SQLite creates them when their corresponding operations run, provided that `TDLV2/data/` exists. Tables are initialized with `CREATE TABLE IF NOT EXISTS`.
+When running the script, choose:
 
-## Usage
+* `1. Sign In (Create Account)`: Register with a new username and a password.
 
-1. Choose **1. Sign In (Create Account)** to register.
-2. Enter a username and a password of at least six characters, then confirm the password.
-3. After registration, choose **2. Log In**. Creating an account does not automatically log you in.
-4. Use the task menu:
+* `2. Log In`: Log into an existing profile.
 
-| Option | Action |
-|---|---|
-| 1. Add Task | Save a task for the current user |
-| 2. View Tasks | Display the current user's task records |
-| 3. Mark Done | Complete tasks matching the entered name |
-| 4. Delete Task | Currently affected by an incorrect database path |
-| 5. Log Out | End the session and exit the application |
+* `3. Exit`: Exit the application.
 
-Task records are displayed as Python tuples in this order:
+### 2. Task Dashboard
 
-```text
-(task_id, user_name, task, status, time)
-```
+Once authenticated, manage your personal task list:
 
-For example, a newly added task may appear as:
+* `1. Add Task`: Enter a task title (default status: `Pending`).
 
-```text
-(1, 'demo_user', 'Review Python modules', 'Pending', '14:30')
-```
+* `2. View Tasks`: Display all current tasks in formatted columns.
 
-Marking a task as done changes its status to `done` and replaces the stored time with the completion time.
+* `3. Mark Done`: Set a chosen task's status to `Done`.
 
-## Project Structure
+* `4. Delete Task`: Remove a task from the database.
 
-| Path | Responsibility |
-|---|---|
-| `app.py` | Entry point, authentication menu, current-user state, and task menu |
-| `SL.py` | User-table initialization, username lookup, registration, and login |
-| `operations.py` | Task-table initialization, adding, viewing, completing, and deleting tasks |
-| `data/users.db` | SQLite account database |
-| `data/tasks.db` | SQLite task database |
+* `5. Log Out`: Return to the main authentication menu.
 
-`app.py` calls functions from `SL.py` to authenticate the user, then passes the logged-in username to functions in `operations.py`.
+## 🗄️ Database Schemas
 
-## Data Model
+### `users.db` (`users` Table)
 
-### Accounts: `users.db` → `users`
+| Field | Type | Description | 
+ | ----- | ----- | ----- | 
+| `name` | `TEXT` | Username (unique check in code) | 
+| `password` | `TEXT` | User password | 
+| `time` | `TEXT` | Registration time (`HH:MM`) | 
 
-| Column | SQL type | Purpose |
-|---|---|---|
-| `name` | TEXT | Username |
-| `password` | TEXT | Password, currently stored as plain text |
-| `time` | TEXT | Registration time in `HH:MM` format |
+### `tasks.db` (`task_list` Table)
 
-Username duplication is checked by application code; the table does not declare a unique constraint.
-
-### Tasks: `tasks.db` → `task_list`
-
-| Column | SQL type | Purpose |
-|---|---|---|
-| `id_user` | INTEGER PRIMARY KEY AUTOINCREMENT | Task record ID, despite the column's name |
-| `user_name` | TEXT | Username associated with the task |
-| `task` | TEXT | Task description |
-| `status` | TEXT | `Pending` or `done` |
-| `date` | TEXT | Creation time, replaced by completion time when marked done |
-
-Both time fields contain only hours and minutes, without a calendar date. The two databases are linked logically by username, with no database-enforced foreign key.
+| Field | Type | Description | 
+ | ----- | ----- | ----- | 
+| `id_user` | `INTEGER` | Primary key with auto-increment | 
+| `user_name` | `TEXT` | Owner of the task | 
+| `task` | `TEXT` | Description/title of the task | 
+| `status` | `TEXT` | Task state (`Pending` or `Done`) | 
+| `date` | `TEXT` | Time of creation or last update (`HH:MM`) | 
 
 ## Author
 
 **Mohamed Amine Aarab**
 
-[LinkedIn](https://www.linkedin.com/in/aarabmedamine/)
+- Computer Engineering Student at ENSAH
+- [LinkedIn](https://www.linkedin.com/in/aarabmedamine/)
+- [GitHub](https://github.com/aarabmohamedamine)
 
-[GitHub](https://github.com/aarabmohamedamine)
