@@ -49,26 +49,33 @@ def view_tasks(name):
     else:
         i = 1
         for row in db:
-            print(f'task {i:<1} : {row[2]:<8}, status :{row[3]:<7} , last update at {row[4]}🔻')
+            print(f'task {i:<1} : {row[2]:<10}, status :{row[3]:<9} , last update at {row[4]}🔻')
             i += 1
     
        
 
 def delete_task(name):
     create_table()
-    view_tasks(name)
-    task_name = input("Enter the name of the task : ")
+    
+
     data = sqlite3.connect("to_do_list/data/tasks.db")
     cursor = data.cursor()
-    cursor.execute("SELECT * FROM task_list WHERE LOWER(task) = LOWER(?) AND user_name = ? ",(task_name,name))
+    cursor.execute("SELECT * FROM task_list WHERE user_name = ? ",(name,))
     db = cursor.fetchall()
-    if not db :
-        print("Task does not exist ❗")
+    if not db:
+        print("List is empty ❗")
     else:
-        cursor.execute("DELETE FROM task_list WHERE LOWER(task) = LOWER(?) AND user_name = ? ",(task_name,name))
-        data.commit()
-        print("Task deleted ✅")
-        data.close()
+        task_name = input("Enter the name of the task : ").title().strip()
+        cursor.execute("SELECT * FROM task_list WHERE task = ? AND user_name = ? ",(task_name,name))
+        db = cursor.fetchall()
+        if not db :
+            print('Task does not exist ⚠️ ')
+            data.close()
+        else:
+            cursor.execute("DELETE FROM task_list WHERE LOWER(task) = LOWER(?) AND user_name = ? ",(task_name,name))
+            data.commit()
+            print("Task deleted ✅")
+            data.close()
 
 
 
@@ -80,7 +87,7 @@ def mark_done(name):
     cursor.execute("SELECT * FROM task_list WHERE user_name = ?",(name,))
     db = cursor.fetchall()
     if not db :
-        print("Liste is empty 🚫 .")
+        print("Liste is empty ❗ .")
         data.close()
     else : 
         view_tasks(name)
