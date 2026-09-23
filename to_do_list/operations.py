@@ -21,22 +21,17 @@ def add_task(name):
     task_name = input("Enter the task name : ").title().strip()
     data = sqlite3.connect("to_do_list/data/tasks.db")
     cursor = data.cursor()
-    cursor.execute("SELECT * FROM task_list WHERE user_name = ? ",(name,))
+    cursor.execute("SELECT * FROM task_list WHERE user_name = ? AND task = ?",(name,task_name))
     db = cursor.fetchall()
-    for row in db :
-        if task_name not in row[2]:
-
-     
-            data = sqlite3.connect("to_do_list/data/tasks.db")
-            cursor = data.cursor()
+    if not db : 
             status = 'Pending'
             date = datetime.now().strftime("%H:%M")
-            data = sqlite3.connect("to_do_list/data/tasks.db")
             cursor.execute("INSERT INTO task_list(user_name,task,status,date) VALUES(?,?,?,?)",(name,task_name,status,date))
             data.commit()
             print("Task added successfully ✅")
             data.close()
-        else:
+            return        
+    else:
             print("Task already exist ❗❗")
             data.close()
             return
